@@ -1,0 +1,106 @@
+From 5ceb3edf8366ff669167221f3f467ae7254a5b7d Mon Sep 17 00:00:00 2001
+From: Hassa <hassamalika@gmail.com>
+Date: Tue, 24 Nov 2020 19:04:36 +0000
+Subject: [PATCH] Task 1
+
+---
+ __pycache__/client3.cpython-38.pyc | Bin 1092 -> 1092 bytes
+ client3.py                         |  22 ----------------------
+ client_test.py                     |  24 +++++++++++++++++++++++-
+ 3 files changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/__pycache__/client3.cpython-38.pyc b/__pycache__/client3.cpython-38.pyc
+index 283c9abdfc5013a39456233d9fda1b951b5d68c7..6d242af600a0183a59afb5c4e1dd27024b135869 100644
+GIT binary patch
+delta 85
+zcmX@YafE{}l$V!_0SKxh_Qq$iZ{*v?#C40kpeQprH9qmy<a11lf(k&{Vm6Q(Mh-?6
+i#v*}9%pHsZlRKGL2y=0;b1(}qDloGEr38Rjj1d5XWDx8C
+
+delta 85
+zcmX@YafE{}l$V!_0SNBf?2VtqwUKWd6IT>_K~ZLMYJ6hU<a11lg6croVm6Q(Mh-?6
+i#v;B+%pHt;lRKGL2n%wEaWD%oDloGEr38Rjj1d5BNf3De
+
+diff --git a/client3.py b/client3.py
+index 5e75031..2c89c1c 100644
+--- a/client3.py
++++ b/client3.py
+@@ -28,34 +28,12 @@ def getDataPoint(quote):
+ 	price = (bid_price + ask_price)/2
+ 	return stock, bid_price, ask_price, price
+ 
+-#def getRatio(price_a, price_b):
+-	#""" Get ratio of price_a and price_b """
+-	#""" ------------- Update this function ------------- """
+-	#""" Also create some unit tests for this function in client_test.py """
+-  #if (price_b == 0):
+-    #return
+-	#return price_a/price_b
+ 
+ def getRatio(price_a, price_b):
+   if (price_b == 0):
+     return
+   return price_a/price_b
+ 
+-# Main
+-#if __name__ == "__main__":
+-
+-	# Query the price once every N seconds.
+-	#for _ in iter(range(N)):
+-		#quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+-
+-		#""" ----------- Update to get the ratio --------------- """
+-    #prices = {}
+-		#for quote in quotes:
+-			#stock, bid_price, ask_price, price = getDataPoint(quote)
+-      #prices[stock] = price
+-			#print ("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+-
+-		#print ("Ratio %s" % getRatio(prices['ABC', prices['DEF']))
+ 
+ #Main
+ if __name__ == "__main__":
+diff --git a/client_test.py b/client_test.py
+index a6b1a71..9166e2d 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -1,5 +1,5 @@
+ import unittest
+-from client3 import getDataPoint
++from client3 import getDataPoint, getRatio
+ 
+ class ClientTest(unittest.TestCase):
+   def test_getDataPoint_calculatePrice(self):
+@@ -22,8 +22,30 @@ class ClientTest(unittest.TestCase):
+ 
+ 
+   """ ------------ Add more unit tests ------------ """
++def test_getRatio_priceBZero(self):
++  price_a = 119.2
++  price_b = 0
++  self.assertIsNone(getRatio(price_a, price_b))
+ 
++def test_getRatio_priceAZero(self):
++  price_a = 0
++  price_b = 121.86
++  self.assertEqual(getRatio(price_a, price_b), 0)
+ 
++def test_getRatio_greaterThan1(self):
++  price_a = 346.48
++  price_b = 166.39
++  self.assertGreater(getRatio(price_a, price_b), 1)
++
++def test_getRatio_LessThan1(self):
++  price_a = 166.39
++  price_b = 356.48
++  self.assertLess(getRatio(price_a, price_b), 1)
++
++def test_getRatio_exactlyOne(self):
++  price_a = 354.48
++  price_b = 354.48
++  self.assertEqual(getRatio(price_a, price_b), 1)
+ 
+ if __name__ == '__main__':
+     unittest.main()
+-- 
+2.17.1
+
